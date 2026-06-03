@@ -244,12 +244,12 @@ a { color: inherit; text-decoration: none; }
   transition: filter .5s var(--ease);
 }
 .hookah__shot:hover { filter: brightness(1.1); }
-.hookah__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: clamp(40px,5vw,70px); }
-.hk { background: var(--void); padding: clamp(30px,3.4vw,48px); position: relative; transition: background .45s; overflow: hidden; }
+.hookah__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(14px,1.6vw,20px); margin-bottom: clamp(40px,5vw,70px); }
+.hk { background: var(--void-2); border: 1px solid var(--line); padding: clamp(28px,3.2vw,44px); position: relative; transition: background .45s, border-color .45s; overflow: hidden; }
 .hk::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--blood); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
-.hk:hover { background: var(--void-2); }
+.hk:hover { background: #161210; }
 .hk:hover::after { transform: scaleX(1); }
-.hk--hot { background: var(--void-2); }
+.hk--hot { border-color: rgba(192,31,51,.4); }
 .hk--hot::after { transform: scaleX(1); }
 .hk__name { font-family: var(--d); font-weight: 400; font-size: clamp(1.7rem,3vw,2.6rem); margin: 0 0 14px; }
 .hk__desc { color: var(--dim); font-size: .92rem; margin-bottom: 28px; max-width: 34ch; }
