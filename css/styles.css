@@ -236,6 +236,9 @@ a { color: inherit; text-decoration: none; }
 .row__desc { font-family: var(--b); font-size: .88rem; color: var(--dim); grid-column: 2; }
 .row__price { font-family: var(--m); font-size: 1rem; color: var(--ink); }
 .row__price::after { content: ' ₽'; color: var(--faint); font-size: .7em; }
+.row__meta { font-family: var(--m); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); white-space: nowrap; align-self: center; }
+.row--hot .row__name { color: var(--blood); }
+.row--hot .row__meta { color: var(--blood); }
 
 /* ============================================================
    OBJ.03 — КАЛЬЯН
