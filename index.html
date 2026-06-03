@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE OBJECT — Lounge Bar</title>
+  <meta name="description" content="THE OBJECT — лаунж-бар с авторской барной картой и кальянной комнатой. Атмосфера, в которой хочется остаться." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="THE OBJECT — Lounge Bar" />
+  <meta property="og:description" content="Лаунж-бар с авторскими коктейлями и кальянной картой. Тёмная элегантная атмосфера." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ====== ПРЕЛОАДЕР ====== -->
+  <div class="preloader" id="preloader">
+    <svg class="preloader__logo" viewBox="0 0 400 220" aria-hidden="true">
+      <ellipse class="preloader__ellipse" cx="200" cy="110" rx="185" ry="78" />
+    </svg>
+    <div class="preloader__text">THE&nbsp;OBJECT</div>
+  </div>
+
+  <!-- ====== ПРОГРЕСС СКРОЛЛА ====== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ====== ШАПКА ====== -->
+  <header class="header" id="header">
+    <a href="#hero" class="header__brand" aria-label="THE OBJECT — на главную">
+      <span class="header__mark"></span>
+      THE&nbsp;OBJECT
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#about" class="nav__link">Атмосфера</a>
+      <a href="#bar" class="nav__link">Барная карта</a>
+      <a href="#hookah" class="nav__link">Кальянная</a>
+      <a href="#gallery" class="nav__link">Галерея</a>
+      <a href="#contacts" class="nav__link">Контакты</a>
+      <a href="#booking" class="nav__link nav__link--cta">Бронь</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="hero">
+    <div class="hero__neon" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        <path class="neon-line neon-line--1" d="M-50,180 C200,60 360,300 560,180 S960,40 1180,200 1420,120 1500,260" />
+        <path class="neon-line neon-line--2" d="M-50,520 C260,420 420,640 680,520 S1080,400 1300,560 1480,500 1520,620" />
+      </svg>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__logo reveal" data-tilt>
+        <svg class="hero__ellipse" viewBox="0 0 600 320" aria-hidden="true">
+          <ellipse cx="300" cy="160" rx="285" ry="120" />
+        </svg>
+        <h1 class="hero__title">
+          <span class="hero__word">THE</span>
+          <span class="hero__word">OBJECT</span>
+        </h1>
+        <p class="hero__sub">L O U N G E&nbsp;&nbsp;B A R</p>
+      </div>
+
+      <p class="hero__tag reveal">Бар, кальян и тишина, в которой слышно вкус.</p>
+
+      <div class="hero__actions reveal">
+        <a href="#bar" class="btn btn--primary">Смотреть меню</a>
+        <a href="#booking" class="btn btn--ghost">Забронировать стол</a>
+      </div>
+    </div>
+
+    <a href="#about" class="hero__scroll" aria-label="Листать вниз">
+      <span class="hero__scroll-dot"></span>
+      <span class="hero__scroll-text">scroll</span>
+    </a>
+  </section>
+
+  <!-- ====== О ЗАВЕДЕНИИ ====== -->
+  <section class="section about" id="about">
+    <div class="section__head reveal">
+      <span class="section__index">01</span>
+      <h2 class="section__title">Атмосфера</h2>
+    </div>
+
+    <div class="about__grid">
+      <div class="about__text reveal">
+        <p class="about__lead">THE&nbsp;OBJECT — это не просто бар. Это объект притяжения.</p>
+        <p>Приглушённый свет, фактурные стены, тёплое золото неона и бокал, который ловит блики. Мы собрали пространство, где вечер замедляется: авторские коктейли, выдержанная кальянная карта и музыка, под которую хочется остаться ещё на один час.</p>
+        <p>Каждая деталь — от подачи до отражения в зеркале — продумана так, чтобы вы чувствовали себя главным объектом внимания.</p>
+      </div>
+
+      <div class="about__stats reveal">
+        <div class="stat">
+          <span class="stat__num" data-count="60">0</span>
+          <span class="stat__label">позиций в баре</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="25">0</span>
+          <span class="stat__label">вкусов табака</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="2"></span>
+          <span class="stat__label">этажа атмосферы</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num">02:00</span>
+          <span class="stat__label">до закрытия</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== БАРНАЯ КАРТА ====== -->
+  <section class="section menu" id="bar">
+    <div class="section__head reveal">
+      <span class="section__index">02</span>
+      <h2 class="section__title">Барная карта</h2>
+      <p class="section__note">Примеры позиций — заменим на ваши. Цены указаны ориентировочно.</p>
+    </div>
+
+    <div class="menu__cats">
+      <div class="menu-cat reveal">
+        <h3 class="menu-cat__title">Авторские коктейли</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <span class="menu-item__name">The Object</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">650 ₽</span>
+            <span class="menu-item__desc">фирменный, джин, цитрус, дым</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Чёрный жемчуг</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">590 ₽</span>
+            <span class="menu-item__desc">ром, активированный уголь, личи</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Неон</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">620 ₽</span>
+            <span class="menu-item__desc">текила, манго, перец, тоник</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3 class="menu-cat__title">Классика</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <span class="menu-item__name">Negroni</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">550 ₽</span>
+            <span class="menu-item__desc">джин, кампари, вермут</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Old Fashioned</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">580 ₽</span>
+            <span class="menu-item__desc">бурбон, биттер, сахар</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Margarita</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">520 ₽</span>
+            <span class="menu-item__desc">текила, лайм, трипл-сек</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="menu-cat reveal">
+        <h3 class="menu-cat__title">Без алкоголя</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <span class="menu-item__name">Цитрусовый туман</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">350 ₽</span>
+            <span class="menu-item__desc">грейпфрут, розмарин, тоник</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Ягодный лимонад</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">320 ₽</span>
+            <span class="menu-item__desc">домашний, сезонные ягоды</span>
+          </li>
+          <li class="menu-item">
+            <span class="menu-item__name">Колд брю</span>
+            <span class="menu-item__dots"></span>
+            <span class="menu-item__price">300 ₽</span>
+            <span class="menu-item__desc">холодный кофе 18 часов</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== КАЛЬЯННАЯ КАРТА ====== -->
+  <section class="section menu menu--hookah" id="hookah">
+    <div class="hookah__smoke" aria-hidden="true"></div>
+    <div class="section__head reveal">
+      <span class="section__index">03</span>
+      <h2 class="section__title">Кальянная карта</h2>
+      <p class="section__note">Расскажите, что входит в вашу карту — добавлю табаки, миксы и кальяны.</p>
+    </div>
+
+    <div class="hookah__grid">
+      <article class="hookah-card reveal">
+        <span class="hookah-card__tag">Классический</span>
+        <h3 class="hookah-card__title">Кальян на воде</h3>
+        <p class="hookah-card__desc">Чистый вкус табака, мягкая тяга. Любой вкус из карты на ваш выбор.</p>
+        <span class="hookah-card__price">от 900 ₽</span>
+      </article>
+
+      <article class="hookah-card reveal hookah-card--feature">
+        <span class="hookah-card__tag">Фирменный</span>
+        <h3 class="hookah-card__title">Кальян на фрукте</h3>
+        <p class="hookah-card__desc">Чаша из свежего фрукта: ананас, грейпфрут или яблоко. Насыщенный аромат.</p>
+        <span class="hookah-card__price">от 1400 ₽</span>
+      </article>
+
+      <article class="hookah-card reveal">
+        <span class="hookah-card__tag">Премиум</span>
+        <h3 class="hookah-card__title">Кальян на молоке / соке</h3>
+        <p class="hookah-card__desc">Мягкий, обволакивающий вкус. Идеален для долгого вечера.</p>
+        <span class="hookah-card__price">от 1200 ₽</span>
+      </article>
+    </div>
+
+    <div class="flavors reveal">
+      <h3 class="flavors__title">Популярные вкусы</h3>
+      <div class="flavors__tags">
+        <span>Двойное яблоко</span>
+        <span>Манго-маракуйя</span>
+        <span>Виноград-мята</span>
+        <span>Грейпфрут</span>
+        <span>Черника</span>
+        <span>Лимон-пирог</span>
+        <span>Дыня</span>
+        <span>Барбарис</span>
+        <span>Тропик микс</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ГАЛЕРЕЯ ====== -->
+  <section class="section gallery" id="gallery">
+    <div class="section__head reveal">
+      <span class="section__index">04</span>
+      <h2 class="section__title">Галерея</h2>
+      <p class="section__note">Здесь будут фото вашего интерьера, подачи и вечеров.</p>
+    </div>
+
+    <div class="gallery__grid">
+      <figure class="gallery__item gallery__item--tall reveal"><span>Интерьер</span></figure>
+      <figure class="gallery__item reveal"><span>Бар</span></figure>
+      <figure class="gallery__item reveal"><span>Коктейль</span></figure>
+      <figure class="gallery__item gallery__item--wide reveal"><span>Зал</span></figure>
+      <figure class="gallery__item reveal"><span>Кальян</span></figure>
+      <figure class="gallery__item gallery__item--tall reveal"><span>Вечер</span></figure>
+    </div>
+  </section>
+
+  <!-- ====== КОНТАКТЫ + БРОНЬ ====== -->
+  <section class="section contacts" id="contacts">
+    <div class="section__head reveal">
+      <span class="section__index">05</span>
+      <h2 class="section__title">Контакты</h2>
+    </div>
+
+    <div class="contacts__grid">
+      <div class="contacts__info reveal">
+        <div class="contact-row">
+          <span class="contact-row__label">Адрес</span>
+          <a class="contact-row__value" href="#" id="mapLink">Укажите адрес заведения</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row__label">Часы</span>
+          <span class="contact-row__value">Пн–Чт 16:00–01:00 · Пт–Вс 16:00–02:00</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row__label">Телефон</span>
+          <a class="contact-row__value" href="tel:+70000000000">+7 (000) 000-00-00</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row__label">Соцсети</span>
+          <span class="contact-row__value socials">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Telegram">Telegram</a>
+            <a href="#" aria-label="WhatsApp">WhatsApp</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- ====== ФОРМА БРОНИ ====== -->
+      <form class="booking reveal" id="booking" novalidate>
+        <h3 class="booking__title">Бронь стола</h3>
+        <div class="booking__row">
+          <label class="field">
+            <span class="field__label">Имя</span>
+            <input type="text" name="name" required placeholder="Как к вам обращаться" />
+          </label>
+          <label class="field">
+            <span class="field__label">Телефон</span>
+            <input type="tel" name="phone" required placeholder="+7 ___ ___-__-__" />
+          </label>
+        </div>
+        <div class="booking__row">
+          <label class="field">
+            <span class="field__label">Дата</span>
+            <input type="date" name="date" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Время</span>
+            <input type="time" name="time" required />
+          </label>
+          <label class="field field--small">
+            <span class="field__label">Гостей</span>
+            <input type="number" name="guests" min="1" max="30" value="2" />
+          </label>
+        </div>
+        <label class="field">
+          <span class="field__label">Пожелания</span>
+          <textarea name="note" rows="2" placeholder="Кальян, повод, столик у окна…"></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary booking__submit">Отправить заявку</button>
+        <p class="booking__status" id="bookingStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ====== ФУТЕР ====== -->
+  <footer class="footer">
+    <div class="footer__logo">THE&nbsp;OBJECT</div>
+    <p class="footer__copy">© <span id="year"></span> THE OBJECT · Lounge Bar. Все права защищены.</p>
+    <p class="footer__legal">18+ · Чрезмерное употребление алкоголя и табака вредит вашему здоровью.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
