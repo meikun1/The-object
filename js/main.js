@@ -1,125 +1,134 @@
 /* ============================================================
-   THE OBJECT — интерактив и анимации
+   THE OBJECT — интерактив (art-house noir)
    ============================================================ */
 (function () {
   'use strict';
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine   = window.matchMedia('(pointer: fine)').matches;
 
-  const $  = (s, ctx = document) => ctx.querySelector(s);
-  const $$ = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---------- Прелоадер ---------- */
+  /* ---------- Прелоадер со счётчиком 00 → 100 ---------- */
   window.addEventListener('load', () => {
-    const pre = $('#preloader');
-    if (!pre) return;
-    setTimeout(() => pre.classList.add('is-done'), reduceMotion ? 0 : 1900);
+    const loader = $('#loader');
+    const count  = $('#loaderCount');
+    if (!loader) return;
+    if (reduce) { loader.classList.add('done'); return; }
+    let n = 0;
+    const t = setInterval(() => {
+      n += Math.floor(Math.random() * 8) + 3;
+      if (n >= 100) { n = 100; clearInterval(t); }
+      count.textContent = n >= 100 ? '100' : String(n).padStart(2, '0');
+    }, 90);
+    setTimeout(() => loader.classList.add('done'), 2000);
   });
 
-  /* ---------- Шапка: фон при скролле + прогресс ---------- */
-  const header = $('#header');
-  const progress = $('#scrollProgress');
-  const onScroll = () => {
-    const y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 40);
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  /* ---------- Кастомный курсор + ring (lerp) ---------- */
+  if (fine && !reduce) {
+    const dot  = $('#cursorDot');
+    const ring = $('#cursorRing');
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    });
+    const loop = () => {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    };
+    loop();
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('[data-cursor="hover"]')) ring.classList.add('is-hover');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest('[data-cursor="hover"]')) ring.classList.remove('is-hover');
+    });
+  }
+
+  /* ---------- Magnetic-кнопки ---------- */
+  if (fine && !reduce) {
+    $$('[data-magnetic]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        el.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Шапка при скролле ---------- */
+  const head = $('#head');
+  addEventListener('scroll', () => head.classList.toggle('scrolled', scrollY > 40), { passive: true });
 
   /* ---------- Мобильное меню ---------- */
-  const burger = $('#burger');
-  const nav = $('#nav');
-  const toggleNav = (open) => {
-    const isOpen = open ?? !nav.classList.contains('is-open');
-    nav.classList.toggle('is-open', isOpen);
-    burger.classList.toggle('is-open', isOpen);
-    burger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+  const burger = $('#burger'), menu = $('#menu');
+  const toggle = (open) => {
+    const o = open ?? !menu.classList.contains('open');
+    menu.classList.toggle('open', o);
+    burger.classList.toggle('open', o);
+    burger.setAttribute('aria-expanded', String(o));
+    document.body.style.overflow = o ? 'hidden' : '';
   };
-  burger.addEventListener('click', () => toggleNav());
-  $$('.nav__link').forEach(l => l.addEventListener('click', () => toggleNav(false)));
+  burger.addEventListener('click', () => toggle());
+  $$('.menu__link').forEach((l) => l.addEventListener('click', () => toggle(false)));
 
-  /* ---------- Reveal при скролле ---------- */
-  const revealEls = $$('.reveal');
-  if ('IntersectionObserver' in window && !reduceMotion) {
+  /* ---------- Reveal со ступенчатой задержкой ---------- */
+  const reveals = $$('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          // лёгкая каскадная задержка для соседних элементов
-          const delay = Math.min(i * 80, 240);
-          setTimeout(() => e.target.classList.add('is-visible'), delay);
-          io.unobserve(e.target);
-        }
+        if (!e.isIntersecting) return;
+        e.target.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(el => io.observe(el));
+    reveals.forEach((el) => io.observe(el));
   } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
+    reveals.forEach((el) => el.classList.add('in'));
   }
 
-  /* ---------- Счётчики в блоке "Атмосфера" ---------- */
-  const counters = $$('.stat__num[data-count]');
-  if ('IntersectionObserver' in window && counters.length) {
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el = e.target;
-        const target = parseInt(el.dataset.count, 10);
-        if (reduceMotion) { el.textContent = target; cio.unobserve(el); return; }
-        const dur = 1400; const start = performance.now();
-        const tick = (now) => {
-          const p = Math.min((now - start) / dur, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(target * eased);
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-        cio.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(c => cio.observe(c));
-  }
-
-  /* ---------- Параллакс-наклон логотипа Hero (десктоп) ---------- */
-  const tiltEl = $('[data-tilt]');
-  if (tiltEl && !reduceMotion && window.matchMedia('(pointer:fine)').matches) {
-    const hero = $('#hero');
-    hero.addEventListener('mousemove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const cx = (e.clientX - r.left) / r.width - 0.5;
-      const cy = (e.clientY - r.top) / r.height - 0.5;
-      tiltEl.style.transform =
-        `perspective(900px) rotateY(${cx * 8}deg) rotateX(${-cy * 8}deg)`;
-    });
-    hero.addEventListener('mouseleave', () => { tiltEl.style.transform = ''; });
-  }
+  /* ---------- Счётчики спецификаций ---------- */
+  $$('[data-count]').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if ('IntersectionObserver' in window && !reduce) {
+      const o = new IntersectionObserver((en) => {
+        en.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const dur = 1500, start = performance.now();
+          const tick = (now) => {
+            const p = Math.min((now - start) / dur, 1);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          o.unobserve(el);
+        });
+      }, { threshold: 0.6 });
+      o.observe(el);
+    } else { el.textContent = target; }
+  });
 
   /* ---------- Форма брони ---------- */
   const form = $('#booking');
   if (form) {
-    // минимальная дата — сегодня
-    const dateInput = form.querySelector('input[name="date"]');
-    if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
-
+    const di = form.querySelector('input[name="date"]');
+    if (di) di.min = new Date().toISOString().split('T')[0];
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const status = $('#bookingStatus');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const data = Object.fromEntries(new FormData(form).entries());
-      // TODO: подключить отправку на сервер / Telegram-бот / почту заведения.
-      // Сейчас — демонстрационное подтверждение.
-      status.textContent = `Спасибо, ${data.name || 'гость'}! Заявка принята — мы перезвоним для подтверждения.`;
+      const s = $('#bookingStatus');
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const d = Object.fromEntries(new FormData(form).entries());
+      // TODO: подключить отправку (почта / Telegram-бот / CRM).
+      s.textContent = `Принято, ${d.name || 'гость'}. Мы перезвоним для подтверждения.`;
       form.reset();
-      if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+      if (di) di.min = new Date().toISOString().split('T')[0];
     });
   }
 
-  /* ---------- Год в футере ---------- */
-  const yearEl = $('#year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
+  /* ---------- Год ---------- */
+  const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
 })();
