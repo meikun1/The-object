@@ -1,5 +1,7 @@
 /* ============================================================
-   THE OBJECT — интерактив (art-house noir)
+   THE OBJECT - интерактив (art-house noir)
+   Соответствует методологии taste-skill: без скролл-слушателей,
+   reduced-motion, без кастомного курсора.
    ============================================================ */
 (function () {
   'use strict';
@@ -23,30 +25,20 @@
     setTimeout(() => loader.classList.add('done'), 2000);
   });
 
-  /* ---------- Кастомный курсор + ring (lerp) ---------- */
-  if (fine && !reduce) {
-    const dot  = $('#cursorDot');
-    const ring = $('#cursorRing');
-    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-    addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-    });
-    const loop = () => {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-      requestAnimationFrame(loop);
-    };
-    loop();
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest('[data-cursor="hover"]')) ring.classList.add('is-hover');
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest('[data-cursor="hover"]')) ring.classList.remove('is-hover');
-    });
+  /* ---------- Шапка при скролле (IntersectionObserver, без scroll-слушателя) ---------- */
+  const head = $('#head');
+  if (head && 'IntersectionObserver' in window) {
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:64px;pointer-events:none;';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(
+      ([e]) => head.classList.toggle('scrolled', !e.isIntersecting),
+      { threshold: 0 }
+    ).observe(sentinel);
   }
 
-  /* ---------- Magnetic-кнопки ---------- */
+  /* ---------- Magnetic-кнопки (десктоп, transform вне React-цикла) ---------- */
   if (fine && !reduce) {
     $$('[data-magnetic]').forEach((el) => {
       el.addEventListener('mousemove', (e) => {
@@ -58,10 +50,6 @@
       el.addEventListener('mouseleave', () => { el.style.transform = ''; });
     });
   }
-
-  /* ---------- Шапка при скролле ---------- */
-  const head = $('#head');
-  addEventListener('scroll', () => head.classList.toggle('scrolled', scrollY > 40), { passive: true });
 
   /* ---------- Мобильное меню ---------- */
   const burger = $('#burger'), menu = $('#menu');
