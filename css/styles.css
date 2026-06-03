@@ -122,8 +122,8 @@ a { color: inherit; text-decoration: none; }
 /* фоновое фото (грейсфул-фолбэк: если файла нет, остаётся тёмный --void) */
 .hero__bg {
   position: absolute; inset: 0; z-index: -2;
-  background: var(--void) center/cover no-repeat;
-  background-image: url(../assets/img/hero.webp);
+  background: var(--void) center 28%/cover no-repeat;
+  background-image: url(../assets/img/hero.jpg);
 }
 .hero__bg::after {
   content: ''; position: absolute; inset: 0;
@@ -196,10 +196,10 @@ a { color: inherit; text-decoration: none; }
 .about__body { grid-column: 8 / 13; padding-top: 10px; }
 .about__body p { color: var(--dim); margin-bottom: 18px; max-width: 46ch; }
 .about__shot {
-  grid-column: 1 / 13; aspect-ratio: 21 / 8; margin-top: clamp(18px,3vw,36px);
+  grid-column: 1 / 13; aspect-ratio: 16 / 8; margin-top: clamp(18px,3vw,36px);
   border: 1px solid var(--line); overflow: hidden;
-  background: var(--void-2) center/cover no-repeat;
-  background-image: url(../assets/img/atmosphere.webp);
+  background: var(--void-2) center 40%/cover no-repeat;
+  background-image: url(../assets/img/atmosphere.jpg);
   transition: filter .5s var(--ease);
 }
 .about__shot:hover { filter: brightness(1.1); }
@@ -237,10 +237,10 @@ a { color: inherit; text-decoration: none; }
 .hookah { overflow: hidden; }
 .hookah__haze { position: absolute; top: 10%; right: -15%; width: 65%; height: 80%; background: radial-gradient(ellipse at 70% 30%, rgba(192,31,51,.10), transparent 62%); filter: blur(30px); pointer-events: none; }
 .hookah__shot {
-  position: relative; z-index: 1; aspect-ratio: 16 / 7; margin-bottom: clamp(30px,4vw,52px);
+  position: relative; z-index: 1; aspect-ratio: 16 / 8; margin-bottom: clamp(30px,4vw,52px);
   border: 1px solid var(--line); overflow: hidden;
-  background: var(--void-2) center/cover no-repeat;
-  background-image: url(../assets/img/hookah.webp);
+  background: var(--void-2) center 42%/cover no-repeat;
+  background-image: url(../assets/img/hookah.jpg);
   transition: filter .5s var(--ease);
 }
 .hookah__shot:hover { filter: brightness(1.1); }
@@ -272,11 +272,11 @@ a { color: inherit; text-decoration: none; }
 .frame::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 120%, rgba(192,31,51,.20), transparent 60%); opacity: 0; transition: opacity .5s; }
 .frame:hover { filter: brightness(1.12); }
 .frame:hover::after { opacity: 1; }
-.frame--cocktail { background-image: url(../assets/img/cocktail.webp); }
-.frame--bar { background-image: url(../assets/img/bar.webp); }
-.frame--lounge { background-image: url(../assets/img/lounge.webp); }
-.frame--hookah { background-image: url(../assets/img/hookah.webp); }
-.frame--mirror { background-image: url(../assets/img/atmosphere.webp); }
+.frame--cocktail { background-image: url(../assets/img/cocktail.jpg); }
+.frame--bar { background-image: url(../assets/img/bar.jpg); }
+.frame--lounge { background-image: url(../assets/img/lounge.jpg); }
+.frame--hookah { background-image: url(../assets/img/hookah.jpg); }
+.frame--mirror { background-image: url(../assets/img/atmosphere.jpg); }
 .frame--a { grid-column: 1 / 6;  grid-row: span 3; }
 .frame--b { grid-column: 6 / 10; grid-row: span 2; }
 .frame--c { grid-column: 10 / 13; grid-row: span 2; }
