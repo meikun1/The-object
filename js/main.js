@@ -100,20 +100,44 @@
     } else { el.textContent = target; }
   });
 
-  /* ---------- Форма брони ---------- */
+  /* ---------- Форма брони ----------
+     Отправка в Telegram идёт через прокси (Cloudflare Worker), чтобы токен
+     бота не попадал в публичный код. Вставьте URL вашего worker ниже.
+     Пока поле пустое — форма показывает подтверждение без отправки.        */
+  const BOOKING_ENDPOINT = ''; // напр. 'https://the-object-booking.ВАШ-ЛОГИН.workers.dev'
   const form = $('#booking');
   if (form) {
     const di = form.querySelector('input[name="date"]');
     if (di) di.min = new Date().toISOString().split('T')[0];
-    form.addEventListener('submit', (e) => {
+    const resetMin = () => { if (di) di.min = new Date().toISOString().split('T')[0]; };
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const s = $('#bookingStatus');
       if (!form.checkValidity()) { form.reportValidity(); return; }
       const d = Object.fromEntries(new FormData(form).entries());
-      // TODO: подключить отправку (почта / Telegram-бот / CRM).
-      s.textContent = `Принято, ${d.name || 'гость'}. Мы перезвоним для подтверждения.`;
-      form.reset();
-      if (di) di.min = new Date().toISOString().split('T')[0];
+      if (d.company) return; // honeypot: бот заполнил скрытое поле
+
+      if (!BOOKING_ENDPOINT) {
+        s.textContent = `Принято, ${d.name || 'гость'}. Мы перезвоним для подтверждения.`;
+        form.reset(); resetMin(); return;
+      }
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true; s.textContent = 'Отправляем заявку…';
+      try {
+        const res = await fetch(BOOKING_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(d),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        s.textContent = `Принято, ${d.name || 'гость'}. Мы перезвоним для подтверждения.`;
+        form.reset(); resetMin();
+      } catch (err) {
+        s.textContent = 'Не удалось отправить. Позвоните нам: +7 (900) 333-30-26';
+      } finally {
+        btn.disabled = false;
+      }
     });
   }
 

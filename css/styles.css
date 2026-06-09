@@ -303,6 +303,7 @@ a.cr__v:hover { color: var(--blood); }
 .fld input::placeholder { color: var(--faint); }
 .fld input:focus { outline: none; border-color: var(--blood); }
 .fld input:invalid:not(:placeholder-shown) { border-color: var(--blood-d); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .book__go { width: 100%; margin-top: 14px; }
 .book__status { margin-top: 16px; font-family: var(--m); font-size: .82rem; color: var(--blood); min-height: 1.2em; text-align: center; }
 
